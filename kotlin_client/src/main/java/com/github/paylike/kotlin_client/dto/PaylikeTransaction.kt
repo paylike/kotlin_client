@@ -1,7 +1,11 @@
 package com.github.paylike.kotlin_client.dto
 
-// Describes a paylike transaction.
+import kotlinx.serialization.json.JsonObject
+
+/**
+ * Describes a paylike transaction.
+ */
 class PaylikeTransaction(val id: String) {
-    constructor(json: Map<String, Any>) :
+    constructor(json: JsonObject) :
             this((json["authorizationId"] ?: json["transactionId"]) as String)
 }

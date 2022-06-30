@@ -7,15 +7,21 @@ import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
 
-// DefaultRetryHandler is used as the default retry backoff
-// mechanism for handling RateLimitExceptions.
+/**
+ * DefaultRetryHandler is used as the default retry backoff
+ * mechanism for handling RateLimitExceptions.
+ */
 class DefaultRetryHandler<T>: RetryHandler<T> {
-    // Counts the number of attempts made so far
+    /**
+     * Counts the number of attempts made so far
+     */
     private var attempts: Int = 0
 
-    // Gives back the duration suggested by the API
-    // or a Duration based on the number of attempts if no
-    // retry headers were provided.
+    /**
+     * Gives back the duration suggested by the API
+     * or a Duration based on the number of attempts if no
+     * retry headers were provided.
+     */
     private fun getRetryAfter(retryAfter: Duration?): Duration {
         var usedDuration: Duration = retryAfter ?: 0.milliseconds
         if (retryAfter == null) {
@@ -30,7 +36,9 @@ class DefaultRetryHandler<T>: RetryHandler<T> {
         return usedDuration
     }
 
-    // Implementation of the retry mechanism.
+    /**
+     * Implementation of the retry mechanism.
+     */
     override fun retry(executor: () -> Future<T>): Future<T> { // TODO async
         try {
             return executor() // TODO how to do that await thingy

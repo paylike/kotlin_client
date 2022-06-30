@@ -1,11 +1,16 @@
 package com.github.paylike.kotlin_client.dto
 
-// Describes a payment response.
-class PaymentResponse(json: Map<String, Any>) {
+import kotlinx.serialization.json.JsonElement
+import kotlinx.serialization.json.JsonObject
+
+/**
+ * Describes a payment response.
+ */
+class PaymentResponse(json: JsonObject) {
     val transaction: PaylikeTransaction
-    val custom: Map<String, Any>
+    val custom: JsonElement?
     init {
         transaction = PaylikeTransaction(json)
-        custom = json["custom"] as Map<String, Any>
+        custom = json["custom"]
     }
 }

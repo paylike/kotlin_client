@@ -1,9 +1,13 @@
 package com.github.paylike.kotlin_client.dto
 
-// PaymentChallenge describes a challenge after a payment creation
-// is initiated
-class PaymentChallenge(json: Map<String, Any>) {
-    var name = json["name"]
-    var type = json["type"]
-    var path = json["path"]
+import kotlinx.serialization.json.JsonObject
+
+/**
+ * PaymentChallenge describes a challenge after a payment creation
+ * is initiated
+ */
+class PaymentChallenge(json: JsonObject) {
+    var name: String = json["name"].toString()
+    var type: String = json["type"].toString()
+    var path: String = json["path"].toString()
 }
