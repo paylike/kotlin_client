@@ -1,10 +1,15 @@
 package com.github.paylike.kotlin_client
 
+import com.github.paylike.kotlin_client.dto.PaylikeClientResponse
 import com.github.paylike.kotlin_client.dto.TokenizedResponse
 import com.github.paylike.kotlin_client.request.PaylikeRequestBuilder
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
-import java.util.concurrent.Future
+import com.github.paylike.kotlin_request.PaylikeRequester
+import com.github.paylike.kotlin_request.RequestOptions
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.*
 import kotlin.time.Duration
 import kotlin.random.Random
 import kotlin.time.Duration.Companion.seconds
@@ -43,21 +48,23 @@ class PaylikeClient {
     }
 
     /**
-     * For testing pusposes
+     * For testing purposes
      */
-    constructor(specificCliendId: String) {
-        this.clientId = specificCliendId
+    constructor(specificClientId: String) {
+        this.clientId = specificClientId
     }
 
     /**
      * Logger function, prints the serialized object
      */
-//     var log : ((o: Any) -> Unit) // TODO how to actually define this
+    var log : ((it: Any) -> Unit) = {
+        println("$it")
+    }
 
     /**
-     * Underlying implementation to do requests from Paylike library kotlin_equest
+     * Underlying implementation to do requests from Paylike library kotlin_request
      */
-//    var requester: PaylikeRequester = PaylikeRequester() // TODO I cant see the request lib...
+    var requester: PaylikeRequester = PaylikeRequester()
 
     /**
      * Timeout to use while making requests
@@ -72,17 +79,17 @@ class PaylikeClient {
     /**
      * Overrides the used requester
      */
-//    fun setRequester(requester: PaylikeRequester) : PaylikeRequester { // TODO I cant see the request lib...
-//        this.requester = requester
-//        return this
-//    }
+    fun setRequester(requester: PaylikeRequester) : PaylikeClient {
+        this.requester = requester
+        return this
+    }
 
     /**
      * Overrides the used logger
      */
-    fun setLog(log: ((o: Any) -> Unit)): PaylikeClient { // TODO log funciton definition is blocking
-//        this.log = log
-        throw NotImplementedError()
+    fun setLog(log: ((o: Any) -> Unit)): PaylikeClient {
+        this.log = log
+        return this
     }
 
     /**
@@ -105,9 +112,13 @@ class PaylikeClient {
      * Tokenize is used to acquire tokens from the vault
      * with retry mechanism used.
      */
-//    fun tokenize(type: TokenizeTypes, value: String): PaylikeRequestBuilder<TokenizedResponse> {
-//        return PaylikeRequestBuilder( () -> _tokenize(type, value) )
-//    }
+    fun tokenize(type: TokenizeTypes, value: String): PaylikeRequestBuilder<TokenizedResponse> {
+        return PaylikeRequestBuilder {
+            GlobalScope.launch(Dispatchers.Main.immediate) {
+                _tokenize(type, value)
+            }
+        }
+    }
 
     /**
      * Used for the tokenization of a token acquired during apple payment flow
@@ -117,11 +128,26 @@ class PaylikeClient {
     /**
      * Used to acquire tokens from the vault.
      */
-//    suspend fun _tokenize(type: TokenizeTypes, value: String): Future<TokenizedResponse> {
-//        var opts = RequestOptions.fromClientId(clientId).setData({
-//
-//        })
-//    }
+    private suspend fun _tokenize(type: TokenizeTypes, value: String): TokenizedResponse {
+        val dataJson = JsonObject(
+            mapOf(
+                "type" to when (type) {
+                    TokenizeTypes.PCN -> JsonPrimitive("pcn")
+                    TokenizeTypes.PCSC -> JsonPrimitive("pcsc")
+                },
+                "value" to JsonPrimitive(value)
+            )
+        )
+        val opts = RequestOptions(
+            clientId = this.clientId,
+            data = dataJson,
+            version = 1,
+            timeout = this.timeout,
+        )
+        val response = requester.request(hosts.vault, opts)
+        val body = response.body
+        return TokenizedResponse(Json.decodeFromString(body.toString()))
+    }
 
     /**
      * Used to acquire tokens for apple pay
@@ -129,14 +155,37 @@ class PaylikeClient {
 //  TODO _tokenizeApple()
 
     /**
-     * Payment create calls the capture API
+     * Payment create calls to capture API
      * with retry mechanism used
      */
-//  TODO paymentCreate()
+
 
     /**
-     * Payment create calls the paymnet API
+     * Payment create calls the payment API
      */
-//    TODO _paymentCreate()
-
+    suspend fun paymentCreate(
+        payment: Map<String, Any>, // TODO nem lesz ez igy jo
+        hints: List<String>,
+        subPath: String = "/payments",
+    ): PaylikeClientResponse {
+        val url = hosts.api + subPath
+        val dataJson = JsonObject(
+            mapOf(
+                "hints" to JsonArray(hints.map { JsonPrimitive(it) }),
+            ).plus(payment.mapValues {
+                val itt = it.value
+                when (itt) {
+                    is String -> JsonPrimitive(itt)
+                    is Boolean -> JsonPrimitive(itt)
+                    is Number -> JsonPrimitive(itt)
+                    else -> JsonPrimitive("")
+                } })
+        )
+        val opts = RequestOptions(
+            clientId = this.clientId,
+            data = dataJson,
+            version = 1,
+            timeout = this.timeout,
+        )
+    }
 }

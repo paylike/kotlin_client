@@ -1,5 +1,6 @@
 package com.github.paylike.kotlin_client.request
 
+import kotlinx.coroutines.Job
 import java.lang.Exception
 import java.util.concurrent.Future
 import java.util.concurrent.TimeoutException
@@ -39,7 +40,7 @@ class DefaultRetryHandler<T>: RetryHandler<T> {
     /**
      * Implementation of the retry mechanism.
      */
-    override fun retry(executor: () -> Future<T>): Future<T> { // TODO async
+    override fun retry(executor: () -> Job): Job { // TODO async
         try {
             return executor() // TODO how to do that await thingy
         } catch (e: Exception) { // RateLimitException

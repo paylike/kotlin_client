@@ -1,5 +1,6 @@
 package com.github.paylike.kotlin_client.request
 
+import kotlinx.coroutines.Job
 import java.util.concurrent.Future
 
 /**
@@ -20,7 +21,7 @@ class PaylikeRequestBuilder<T> {
     /**
      * Async function to execute
      */
-    lateinit var fn: () -> Future<T>
+    lateinit var fn: () -> Job
 
     /**
      * Enables default retry - backoff mechanism.
@@ -41,7 +42,7 @@ class PaylikeRequestBuilder<T> {
     /**
      * Without retry mechanism
      */
-    constructor(fn: () -> Future<T>) {
+    constructor(fn: () -> Job) {
         retryEnabled = false
         this.fn = fn
     }
@@ -49,7 +50,7 @@ class PaylikeRequestBuilder<T> {
     /**
      * Executes the request
      */
-    fun execute(): Future<T> {
+    fun execute(): Job {
         return if (retryEnabled)
             retryHandler.retry(fn)
         else
