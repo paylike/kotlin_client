@@ -1,8 +1,9 @@
 package com.github.paylike.kotlin_client.request
 
+import com.github.paylike.kotlin_request.exceptions.RateLimitException
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import java.lang.Exception
-import java.util.concurrent.Future
 import java.util.concurrent.TimeoutException
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
@@ -16,15 +17,15 @@ class DefaultRetryHandler<T>: RetryHandler<T> {
     /**
      * Counts the number of attempts made so far
      */
-    private var attempts: Int = 0
+    private var attempts = 0
 
     /**
      * Gives back the duration suggested by the API
      * or a Duration based on the number of attempts if no
      * retry headers were provided.
      */
-    private fun getRetryAfter(retryAfter: Duration?): Duration {
-        var usedDuration: Duration = retryAfter ?: 0.milliseconds
+    private fun getRetryAfter(retryAfter: Duration?): Duration { // TODO Actual value of parameter retryAfter is always null
+        var usedDuration = retryAfter ?: 0.milliseconds
         if (retryAfter == null) {
             usedDuration = when (attempts) {
                 0 -> 0.milliseconds
@@ -40,15 +41,15 @@ class DefaultRetryHandler<T>: RetryHandler<T> {
     /**
      * Implementation of the retry mechanism.
      */
-    override fun retry(executor: () -> Job): Job { // TODO async
+    override suspend fun retry(executor: () -> Job): Job {
         try {
-            return executor() // TODO how to do that await thingy
-        } catch (e: Exception) { // RateLimitException
+            return executor()
+        } catch (e: RateLimitException) {
             attempts++
             if (attempts > 10) {
                 throw  e
             }
-            // TODO "await Future.delayed(getRetryAfter(e.retryAfter));"
+            delay(getRetryAfter(null))
             return retry(executor)
         } catch (e: TimeoutException) {
             attempts++

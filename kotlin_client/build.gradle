@@ -35,16 +35,7 @@ dependencies {
     implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.0'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.2'
     implementation 'org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3'
-
-    api 'com.github.paylike:kotlin_luhn:1.0.4'
-    api 'com.github.paylike:kotlin_money:1.0.1'
     api 'com.github.paylike:kotlin_request:1.0.1'
-
-    // ez ideiglenes
-    implementation "org.http4k:http4k-core:4.26.0.0"
-    implementation "org.http4k:http4k-format-kotlinx-serialization:4.26.0.0"
-    implementation "org.http4k:http4k-client-apache:4.26.0.0"
-    //
 }
 
 afterEvaluate {

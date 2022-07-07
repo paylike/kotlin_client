@@ -7,5 +7,5 @@ import kotlinx.serialization.json.JsonObject
  */
 class PaylikeTransaction(val id: String) {
     constructor(json: JsonObject) :
-            this((json["authorizationId"] ?: json["transactionId"]) as String)
+            this((json["authorizationId"] ?: json["transactionId"]).toString())
 }

@@ -1,7 +1,6 @@
 package com.github.paylike.kotlin_client.request
 
 import kotlinx.coroutines.Job
-import java.util.concurrent.Future
 
 /**
  * PaylikeRequestBuilder provides a flexible way to add
@@ -28,7 +27,7 @@ class PaylikeRequestBuilder<T> {
      */
     constructor() {
         retryEnabled = true
-        this.retryHandler = DefaultRetryHandler<T>()
+        this.retryHandler = DefaultRetryHandler()
     }
 
     /**
@@ -50,7 +49,7 @@ class PaylikeRequestBuilder<T> {
     /**
      * Executes the request
      */
-    fun execute(): Job {
+    suspend fun execute(): Job {
         return if (retryEnabled)
             retryHandler.retry(fn)
         else
