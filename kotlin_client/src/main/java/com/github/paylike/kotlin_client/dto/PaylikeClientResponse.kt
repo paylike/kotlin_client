@@ -8,7 +8,7 @@ import java.lang.Exception
 class PaylikeClientResponse(
     paymentResponse: PaymentResponse?,
     val isHTML: Boolean,
-    HTMLBody: String?,
+    htmlBody: String?,
     val hints: List<String> = mutableListOf(),
 ) {
     /**
@@ -27,7 +27,7 @@ class PaylikeClientResponse(
      * Returns HTML body if not null
      * otherwise throws an exception
      */
-    val htmlBody: String? = HTMLBody
+    val htmlBody: String? = htmlBody
         get() {
             if (field == null) {
             throw Exception("HTMLBody is null, cannot be acquired")
