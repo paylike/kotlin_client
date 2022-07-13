@@ -2,14 +2,11 @@ package com.github.paylike.kotlin_client
 
 import android.net.Uri
 import com.github.paylike.kotlin_client.dto.*
-import com.github.paylike.kotlin_client.request.PaylikeRequestBuilder
 import com.github.paylike.kotlin_request.PaylikeRequester
 import com.github.paylike.kotlin_request.RequestOptions
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.*
+import java.util.function.Consumer
 import kotlin.time.Duration
 import kotlin.random.Random
 import kotlin.time.Duration.Companion.seconds
@@ -33,14 +30,6 @@ class PaylikeClient {
      }
 
     /**
-     * SDK Client ID used while making requests
-     *
-     * Note: This is not the merchant's client ID
-     */
-    var clientId = String()
-
-
-    /**
      * Standard constructor
      */
     constructor() {
@@ -55,10 +44,17 @@ class PaylikeClient {
     }
 
     /**
+     * SDK Client ID used while making requests
+     *
+     * Note: This is not the merchant's client ID
+     */
+    var clientId = String()
+
+    /**
      * Logger function, prints the serialized object
      */
-    var log : ((it: Any) -> Unit) = {
-        println("$it")
+    var log : Consumer<Any> = Consumer {
+        println(it.toString())
     }
 
     /**
@@ -77,53 +73,9 @@ class PaylikeClient {
     var hosts: PaylikeHosts = PaylikeHosts()
 
     /**
-     * Overrides the used requester
-     */ // TODO may delete all the setters cause they are not necessary
-    fun setRequester(requester: PaylikeRequester) : PaylikeClient {
-        this.requester = requester
-        return this
-    }
-
-    /**
-     * Overrides the used logger
-     */
-    fun setLog(log: ((o: Any) -> Unit)): PaylikeClient {
-        this.log = log
-        return this
-    }
-
-    /**
-     * Overrides the timeout settings
-     */
-    fun setTimeout(timeout: Duration): PaylikeClient {
-        this.timeout = timeout
-        return this
-    }
-
-    /**
-     * Overrides hosts
-     */
-    fun setHosts(hosts: PaylikeHosts): PaylikeClient {
-        this.hosts = hosts
-        return this
-    }
-
-    /**
-     * Tokenize is used to acquire tokens from the vault
-     * with retry mechanism used.
-     */
-    fun startTokenize(type: TokenizeTypes, value: String): PaylikeRequestBuilder<TokenizedResponse> {
-        return PaylikeRequestBuilder {
-            GlobalScope.launch(Dispatchers.Main.immediate) { // TODO This is a delicate API and its use requesres care.
-                tokenize(type, value)
-            }
-        }
-    }
-
-    /**
      * Used to acquire tokens from the vault.
      */
-    private suspend fun tokenize(type: TokenizeTypes, value: String): TokenizedResponse {
+    suspend fun tokenize(type: TokenizeTypes, value: String): TokenizedResponse {
         val dataJson = JsonObject(
             mapOf(
                 "type" to when (type) {
@@ -173,7 +125,7 @@ class PaylikeClient {
         )
         val response = requester.request(url, opts)
         val jsonBody: JsonObject = Json.encodeToJsonElement(response.body.toString()) as JsonObject
-        log(mapOf(
+        log.accept(mapOf(
             "t" to "response-body",
             "data" to jsonBody,
         ))
@@ -209,7 +161,7 @@ class PaylikeClient {
                     formFields = formFields,
                 )
             )
-            return PaylikeClientResponse(isHTML = true, HTMLBody = formResponse.body.toString(), paymentResponse = null, hints = refreshedHints)
+            return PaylikeClientResponse(isHTML = true, htmlBody = formResponse.body.toString(), paymentResponse = null, hints = refreshedHints)
         }
         if (jsonBody["hints"] != null && (jsonBody["hints"] as List<*>).isNotEmpty()) {
             val hintsResponse = HintsResponse(jsonBody)
@@ -219,6 +171,6 @@ class PaylikeClient {
             val refreshedHints = freshSet.toList().map { it.toString() }
             return paymentCreate(payment, refreshedHints, null)
         }
-        return PaylikeClientResponse(isHTML = false, HTMLBody = null, paymentResponse = PaymentResponse(jsonBody))
+        return PaylikeClientResponse(isHTML = false, htmlBody = null, paymentResponse = PaymentResponse(jsonBody))
     }
 }
