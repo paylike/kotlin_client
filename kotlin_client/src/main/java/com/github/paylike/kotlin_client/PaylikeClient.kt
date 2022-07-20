@@ -1,10 +1,12 @@
 package com.github.paylike.kotlin_client
 
-import com.github.paylike.kotlin_client.domain.payment.request.PaymentData
-import com.github.paylike.kotlin_client.domain.payment.response.*
-import com.github.paylike.kotlin_client.domain.payment.response.challenges.ChallengeTypes
-import com.github.paylike.kotlin_client.domain.tokenize.response.TokenizedResponse
-import com.github.paylike.kotlin_client.domain.tokenize.request.TokenizeData
+import com.github.paylike.kotlin_client.domain.PaylikeHosts
+import com.github.paylike.kotlin_client.domain.dto.payment.request.PaymentData
+import com.github.paylike.kotlin_client.domain.dto.payment.response.PaylikeClientResponse
+import com.github.paylike.kotlin_client.domain.dto.payment.response.PaymentResponse
+import com.github.paylike.kotlin_client.domain.dto.payment.response.challenges.ChallengeTypes
+import com.github.paylike.kotlin_client.domain.dto.tokenize.response.TokenizedResponse
+import com.github.paylike.kotlin_client.domain.dto.tokenize.request.TokenizeData
 import com.github.paylike.kotlin_request.PaylikeRequester
 import com.github.paylike.kotlin_request.RequestOptions
 import kotlinx.serialization.decodeFromString
@@ -118,10 +120,10 @@ class PaylikeClient {
         val paymentResponse = jsonFormatter.decodeFromString<PaymentResponse>(response.body.toString())
 
         /**
-         * Challenge process
+         * ChallengeDto process
          */
-        if (!paymentResponse.challenges.isNullOrEmpty()) {
-            val remainingChallenges = paymentResponse.challenges
+        if (!paymentResponse.challengeDtos.isNullOrEmpty()) {
+            val remainingChallenges = paymentResponse.challengeDtos
             val fetchChallenges = remainingChallenges.filter {
                 it.type == ChallengeTypes.FETCH
             }

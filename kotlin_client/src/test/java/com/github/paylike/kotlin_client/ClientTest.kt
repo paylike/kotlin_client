@@ -1,12 +1,12 @@
 package com.github.paylike.kotlin_client
 
-import com.github.paylike.kotlin_client.domain.payment.request.PaymentData
-import com.github.paylike.kotlin_client.domain.payment.request.card.Expiry
-import com.github.paylike.kotlin_client.domain.payment.request.card.PaylikeCard
-import com.github.paylike.kotlin_client.domain.payment.request.integration.PaymentIntegration
-import com.github.paylike.kotlin_client.domain.payment.request.test.PaymentTest
-import com.github.paylike.kotlin_client.domain.tokenize.request.TokenizeData
-import com.github.paylike.kotlin_client.domain.tokenize.request.TokenizeTypes
+import com.github.paylike.kotlin_client.domain.dto.payment.request.PaymentData
+import com.github.paylike.kotlin_client.domain.dto.payment.request.card.ExpiryDto
+import com.github.paylike.kotlin_client.domain.dto.payment.request.card.PaylikeCardDto
+import com.github.paylike.kotlin_client.domain.dto.payment.request.integration.PaymentIntegrationDto
+import com.github.paylike.kotlin_client.domain.dto.payment.request.test.PaymentTestDto
+import com.github.paylike.kotlin_client.domain.dto.tokenize.request.TokenizeData
+import com.github.paylike.kotlin_client.domain.dto.tokenize.request.TokenizeTypes
 import com.github.paylike.kotlin_money.PaymentAmount
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
@@ -37,15 +37,15 @@ class ClientTest {
             assertTrue(responseCard.token.isNotEmpty())
             assertTrue(responseCode.token.isNotEmpty())
 
-            val paymentCard = PaylikeCard(
+            val paymentCard = PaylikeCardDto(
                 number = responseCard,
                 cvc = responseCode,
-                expiry = Expiry(12,2023),
+                expiryDto = ExpiryDto(12,2023),
             )
             val paymentAmount = PaymentAmount("EUR", 1, 0)
             val paymentData = PaymentData(
-                test = PaymentTest(),
-                integration = PaymentIntegration(BuildConfig.E2E_Client_KEY),
+                test = PaymentTestDto(),
+                integration = PaymentIntegrationDto(BuildConfig.E2E_Client_KEY),
                 amount = paymentAmount,
                 card = paymentCard,
             )
