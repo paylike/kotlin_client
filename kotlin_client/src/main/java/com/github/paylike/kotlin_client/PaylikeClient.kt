@@ -51,7 +51,7 @@ class PaylikeClient {
     /**
      * Create Json formatter to be able to handle unexpected json fields
      */
-    private val myJsonFormatter = Json { ignoreUnknownKeys = true }
+    private val jsonFormatter = Json { ignoreUnknownKeys = true }
 
     /**
      * SDK Client ID used while making requests
@@ -115,7 +115,7 @@ class PaylikeClient {
             data = Json.encodeToJsonElement(paymentData) as JsonObject,
             timeout = this.timeout,
         ))
-        val paymentResponse = myJsonFormatter.decodeFromString<PaymentResponse>(response.body.toString())
+        val paymentResponse = jsonFormatter.decodeFromString<PaymentResponse>(response.body.toString())
 
         /**
          * Challenge process
