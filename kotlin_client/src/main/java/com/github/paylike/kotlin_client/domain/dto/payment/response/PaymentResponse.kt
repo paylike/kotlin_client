@@ -23,6 +23,9 @@ import kotlinx.serialization.json.JsonObject
  * [fields],
  * [timeout], // optional and in milliseconds
  * [method], // http method
+ *
+ * For API reference
+ * @see <a href="https://github.com/paylike/api-reference/blob/main/payments/index.md#challengeresponse">link</a>
  */
 @Serializable
 data class PaymentResponse(

@@ -4,6 +4,9 @@ import kotlinx.serialization.Serializable
 
 /**
  * Holds information for the tokenize request jsonbody
+ *
+ * For API reference
+ * @see <a href="https://github.com/paylike/api-reference/blob/main/vault.md">link</a>
  */
 @Serializable
 data class TokenizeData(
