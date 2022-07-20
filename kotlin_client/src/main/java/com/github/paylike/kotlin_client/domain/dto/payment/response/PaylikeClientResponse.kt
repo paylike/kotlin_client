@@ -8,17 +8,5 @@ import java.lang.Exception
 class PaylikeClientResponse(
     val paymentResponse: PaymentResponse,
     val isHTML: Boolean,
-    htmlBody: String?,
-) {
-    /**
-     * Returns HTML body if not null
-     * otherwise throws an exception
-     */
-    val htmlBody: String? = htmlBody
-        get() {
-            if (field == null) {
-            throw Exception("HTMLBody is null, cannot be acquired")
-        }
-            return field
-        }
-}
+    val htmlBody: String?,
+)
