@@ -7,7 +7,10 @@ import com.github.paylike.kotlin_client.domain.dto.payment.request.integration.P
 import com.github.paylike.kotlin_client.domain.dto.payment.request.test.PaymentTestDto
 import com.github.paylike.kotlin_client.domain.dto.tokenize.request.TokenizeData
 import com.github.paylike.kotlin_client.domain.dto.tokenize.request.TokenizeTypes
+import com.github.paylike.kotlin_client.exceptions.InvalidExpiryException
+import com.github.paylike.kotlin_money.Money
 import com.github.paylike.kotlin_money.PaymentAmount
+import com.github.paylike.kotlin_money.UnsafeNumberException
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
 import org.junit.Assert.*
@@ -53,5 +56,30 @@ class ClientTest {
             assertTrue(responsePayment.isHTML)
             assertTrue(responsePayment.htmlBody!!.isNotEmpty())
         }
+    }
+    @Test
+    fun expiryExceptionTest(){
+        var invalidExpiryException = assertThrows(InvalidExpiryException::class.java) {
+            var expiry = ExpiryDto(0, 2023)
+        }
+        assertTrue(invalidExpiryException is InvalidExpiryException)
+        assertEquals("Invalid expiry date, month range is [1..12] and year range is [2000..2099]", invalidExpiryException.message)
+
+        invalidExpiryException = assertThrows(InvalidExpiryException::class.java) {
+            var expiry = ExpiryDto(13, 2023)
+        }
+        assertTrue(invalidExpiryException is InvalidExpiryException)
+        assertEquals("Invalid expiry date, month range is [1..12] and year range is [2000..2099]", invalidExpiryException.message)
+        invalidExpiryException = assertThrows(InvalidExpiryException::class.java) {
+            var expiry = ExpiryDto(1, 1999)
+        }
+        assertTrue(invalidExpiryException is InvalidExpiryException)
+        assertEquals("Invalid expiry date, month range is [1..12] and year range is [2000..2099]", invalidExpiryException.message)
+
+        invalidExpiryException = assertThrows(InvalidExpiryException::class.java) {
+            var expiry = ExpiryDto(1, 2100)
+        }
+        assertTrue(invalidExpiryException is InvalidExpiryException)
+        assertEquals("Invalid expiry date, month range is [1..12] and year range is [2000..2099]", invalidExpiryException.message)
     }
 }
