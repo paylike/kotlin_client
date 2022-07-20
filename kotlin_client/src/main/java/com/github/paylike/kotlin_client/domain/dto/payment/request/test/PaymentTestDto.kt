@@ -1,5 +1,7 @@
 package com.github.paylike.kotlin_client.domain.dto.payment.request.test
 
+import com.github.paylike.kotlin_client.domain.dto.payment.request.test.card.TestCardDto
+import com.github.paylike.kotlin_client.domain.dto.payment.request.test.tds.TestTdsDto
 import kotlinx.serialization.Serializable
 
 /**
@@ -9,5 +11,7 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class PaymentTestDto(
-    val nothing: String? = null, // TODO implement test subclasses, so far not needed tho
+    val card: TestCardDto? = null,
+    val fingerprint: FingerprintOptions? = null,
+    val tds: TestTdsDto? = null,
 )
