@@ -153,8 +153,8 @@ class PaylikeClient {
             val refreshedHints: List<String>
             if (paymentResponse.hints != null) {
                 val freshSet = mutableSetOf<String>()
-                freshSet.addAll(paymentResponse.hints!!)
                 freshSet.addAll(paymentData.hints)
+                freshSet.addAll(paymentResponse.hints!!)
                 refreshedHints = freshSet.toList()
                 paymentResponse.hints = refreshedHints
             }
