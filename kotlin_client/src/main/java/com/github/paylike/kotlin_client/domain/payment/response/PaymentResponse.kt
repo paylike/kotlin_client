@@ -10,14 +10,19 @@ import kotlinx.serialization.json.JsonObject
  * One of :
  * [challenges],
  * or
+ * ( one of them but for the same purpose
  * [authorizationId]
+ * or
+ * [transactionId]
+ * )
  * or
  * [hints]
  * or
  * [hints], // optional
  * [action],
  * [fields],
- * [timeout], // optional
+ * [timeout], // optional and in milliseconds
+ * [method], // http method
  */
 @Serializable
 data class PaymentResponse(
@@ -30,7 +35,7 @@ data class PaymentResponse(
      * Final response has this field
      */
     val authorizationId: String? = null,
-    val transactionId: String? = null, // TODO is this existing?
+    val transactionId: String? = null,
 
     /**
      * Response to any challenge type has this field
@@ -44,6 +49,6 @@ data class PaymentResponse(
      */
     val action: String? = null,
     val fields: JsonObject? = null,
-    val timeout: Int? = null, // optional and in milliseconds
-//    val method: String? = null, // not even mentioned but exists
+    val timeout: Int? = null,
+    val method: String? = null,
 )

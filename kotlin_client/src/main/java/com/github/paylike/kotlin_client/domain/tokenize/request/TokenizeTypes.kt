@@ -5,15 +5,11 @@ import kotlinx.serialization.Serializable
 
 /**
  * TokenizeTypes describe the options for tokenizing card number and code
+ * [PCN] for card number
+ * [PCSC] for CVC code
  */
 @Serializable
 enum class TokenizeTypes {
-    /**
-     * For card number
-     */
     @SerialName("pcn") PCN,
-    /**
-     * For CVC codes
-     */
     @SerialName("pcsc") PCSC,
 }

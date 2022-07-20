@@ -14,7 +14,7 @@ import kotlinx.serialization.json.JsonObject
 /**
  * Holds information for the payment requests json body
  */
-@OptIn(ExperimentalSerializationApi::class) // TODO do we need this annotation?
+@OptIn(ExperimentalSerializationApi::class)
 @Serializable
 data class PaymentData(
     val test: PaymentTest? = null,
@@ -26,4 +26,4 @@ data class PaymentData(
     val amount: PaymentAmount? = null,
     val plan: List<PaymentPlan>? = null,
     val unplanned: PaymentUnplanned? = null,
-    )
+)
