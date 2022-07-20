@@ -8,7 +8,7 @@ import kotlinx.serialization.json.JsonObject
  * Response types to payment requests
  *
  * One of :
- * [challengeDtos],
+ * [challenges],
  * or
  * ( one of them but for the same purpose
  * [authorizationId]
@@ -29,7 +29,7 @@ data class PaymentResponse(
     /**
      * Challenges type of response has this field
      */
-    val challengeDtos: List<ChallengeDto>? = null,
+    val challenges: List<ChallengeDto>? = null,
 
     /**
      * Final response has this field

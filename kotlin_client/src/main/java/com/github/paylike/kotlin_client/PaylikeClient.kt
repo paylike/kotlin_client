@@ -122,8 +122,8 @@ class PaylikeClient {
         /**
          * ChallengeDto process
          */
-        if (!paymentResponse.challengeDtos.isNullOrEmpty()) {
-            val remainingChallenges = paymentResponse.challengeDtos
+        if (!paymentResponse.challenges.isNullOrEmpty()) {
+            val remainingChallenges = paymentResponse.challenges
             val fetchChallenges = remainingChallenges.filter {
                 it.type == ChallengeTypes.FETCH
             }

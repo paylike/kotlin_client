@@ -8,9 +8,7 @@ import com.github.paylike.kotlin_client.domain.dto.payment.request.test.PaymentT
 import com.github.paylike.kotlin_client.domain.dto.tokenize.request.TokenizeData
 import com.github.paylike.kotlin_client.domain.dto.tokenize.request.TokenizeTypes
 import com.github.paylike.kotlin_client.exceptions.InvalidExpiryException
-import com.github.paylike.kotlin_money.Money
 import com.github.paylike.kotlin_money.PaymentAmount
-import com.github.paylike.kotlin_money.UnsafeNumberException
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
 import org.junit.Assert.*
@@ -43,7 +41,7 @@ class ClientTest {
             val paymentCard = PaylikeCardDto(
                 number = responseCard,
                 cvc = responseCode,
-                expiryDto = ExpiryDto(12,2023),
+                expiry = ExpiryDto(12,2023),
             )
             val paymentAmount = PaymentAmount("EUR", 1, 0)
             val paymentData = PaymentData(

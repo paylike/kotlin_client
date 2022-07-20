@@ -11,5 +11,5 @@ import kotlinx.serialization.Serializable
 data class PaylikeCardDto(
     val number: TokenizedResponse,
     @SerialName("code") val cvc: TokenizedResponse,
-    val expiryDto: ExpiryDto,
+    val expiry: ExpiryDto,
 )
