@@ -19,16 +19,14 @@ class ClientTest {
     fun tokenizeCardTest() {
         runBlocking {
             val responseCard = client.tokenize(TokenizeData(TokenizeTypes.PCN, "4100000000000000"))
-            println(responseCard)
-            assertEquals(true, responseCard.token.isNotEmpty())
+            assertTrue(responseCard.token.isNotEmpty())
         }
     }
     @Test
     fun tokenizeCvcTest() {
         runBlocking {
             val responseCode = client.tokenize(TokenizeData(TokenizeTypes.PCSC, "111"))
-            println(responseCode)
-            assertEquals(true, responseCode.token.isNotEmpty())
+            assertTrue(responseCode.token.isNotEmpty())
         }
     }
     @Test
@@ -36,8 +34,8 @@ class ClientTest {
         runBlocking {
             val responseCard = client.tokenize(TokenizeData(TokenizeTypes.PCN, "4100000000000000"))
             val responseCode = client.tokenize(TokenizeData(TokenizeTypes.PCSC, "111"))
-            assertEquals(true, responseCard.token.isNotEmpty())
-            assertEquals(true, responseCode.token.isNotEmpty())
+            assertTrue(responseCard.token.isNotEmpty())
+            assertTrue(responseCode.token.isNotEmpty())
 
             val paymentCard = PaylikeCard(
                 number = responseCard,
@@ -52,8 +50,8 @@ class ClientTest {
                 card = paymentCard,
             )
             val responsePayment = client.paymentCreate(paymentData)
-            assertEquals(true, responsePayment.isHTML)
-            assertEquals(true, responsePayment.htmlBody!!.isNotEmpty())
+            assertTrue(responsePayment.isHTML)
+            assertTrue(responsePayment.htmlBody!!.isNotEmpty())
         }
     }
 }
