@@ -49,9 +49,13 @@ import kotlinx.coroutines.runBlocking
 /**
  * This a dummy example usage flow, this code wont finish successfully.
  */
-fun main()
-{
+fun main() {
+    // create client instance
     val client = PaylikeClient("TestID01")
+    // get your merchant id, preferably from environmental variable
+    val yourMerchantId = BuildConfig.E2E_Client_KEY
+
+    // indicate coroutineScope
     runBlocking {
         // Tokenize the card data
         val responseCard = client.tokenize(TokenizeData(TokenizeTypes.PCN, "4100000000000000"))
@@ -65,7 +69,7 @@ fun main()
             expiry = ExpiryDto(12,2023),
         )
         val paymentData = PaymentData(
-            integration = PaymentIntegrationDto(BuildConfig.E2E_Client_KEY), // here comes your merchant id
+            integration = PaymentIntegrationDto(yourMerchantId), // here comes your merchant id
             amount = paymentAmount,
             card = paymentCard,
         )
