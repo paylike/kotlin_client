@@ -149,7 +149,7 @@ class PaylikeClient {
         /**
          * Iframe
          */
-        if (paymentResponse.action != null && paymentResponse.fields != null) {  // TODO see if its correct
+        if (paymentResponse.action != null && paymentResponse.fields != null) {
             val refreshedHints: List<String>
             if (paymentResponse.hints != null) {
                 val freshSet = mutableSetOf<String>()
@@ -174,6 +174,8 @@ class PaylikeClient {
 
         /**
          * Append new hint
+         * Appends newly got hint to the [paymentData]
+         * then recursively start a new [paymentCreate] iteration.
          */
         if (!paymentResponse.hints.isNullOrEmpty()) {
             val freshSet = mutableSetOf<String>()
@@ -188,9 +190,9 @@ class PaylikeClient {
          * and within [PaymentResponse.transactionId]
          */
         return PaylikeClientResponse(
-            paymentResponse = paymentResponse,
             isHTML = false,
-            htmlBody = null
-        )
+            htmlBody = null,
+            paymentResponse = paymentResponse,
+            )
     }
 }
