@@ -12,6 +12,7 @@ import com.github.paylike.kotlin_money.PaymentAmount
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
 import org.junit.Assert.*
+import java.lang.Exception
 
 class ClientTest {
     private val client = PaylikeClient("TestID01")
@@ -32,6 +33,9 @@ class ClientTest {
     }
     @Test
     fun paymentCreation() {
+        if (!BuildConfig.E2E_Client_KEY.isNullOrEmpty()) {
+            throw Exception("The environmental field is not found.")
+        }
         runBlocking {
             val responseCard = client.tokenize(TokenizeData(TokenizeTypes.PCN, "4100000000000000"))
             val responseCode = client.tokenize(TokenizeData(TokenizeTypes.PCSC, "111"))
