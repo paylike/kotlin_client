@@ -195,6 +195,6 @@ class PaylikeClient {
             isHTML = false,
             htmlBody = null,
             paymentResponse = paymentResponse,
-            )
+        )
     }
 }
