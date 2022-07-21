@@ -1,40 +1,5 @@
-# Paylike Kotlin API Client
+package com.github.paylike.sample
 
-<a href="https://jitpack.io/#paylike/kotlin_client" target="_blank">
-    <img src="https://jitpack.io/v/paylike/kotlin_client.svg" />
-</a>
-
-*This implementation is based on [Paylike/js-client](https://github.com/paylike/js-client)*
-
-High-level client for the API documented at:
-[Paylike API reference](https://github.com/paylike/api-reference).
-It is using [paylike_kotlin_request](https://jitpack.io/#paylike/kotlin_client) under the
-hood.
-
-
-
-## Examples
-
-### Gradle setup
-```groovy
-repositories {
-    // ...
-    maven {
-        url 'https://jitpack.io'
-    }
-    // ...
-}
-
-dependencies {
-    // ...
-    implementation 'com.github.paylike:kotlin_client:[version]' // see the badge under the title
-    // ...
-}
-```
-
-### Example code for paymnet flow
-
-```kotlin
 import com.github.paylike.kotlin_client.BuildConfig
 import com.github.paylike.kotlin_client.PaylikeClient
 import com.github.paylike.kotlin_client.domain.dto.payment.request.PaymentData
@@ -98,4 +63,3 @@ fun main() {
         }
     }
 }
-```
