@@ -33,8 +33,8 @@ class ClientTest {
     }
     @Test
     fun paymentCreation() {
-        if (!BuildConfig.E2E_Client_KEY.isNullOrEmpty()) {
-            throw Exception("The environmental field is not found.")
+        if (BuildConfig.PaylikeMerchantApiKey.isNullOrEmpty()) {
+            throw Exception("The environmental field is not set to local.properties file")
         }
         runBlocking {
             val responseCard = client.tokenize(TokenizeData(TokenizeTypes.PCN, "4100000000000000"))
@@ -50,7 +50,7 @@ class ClientTest {
             val paymentAmount = PaymentAmount("EUR", 1, 0)
             val paymentData = PaymentData(
                 test = PaymentTestDto(),
-                integration = PaymentIntegrationDto(BuildConfig.E2E_Client_KEY),
+                integration = PaymentIntegrationDto(BuildConfig.PaylikeMerchantApiKey),
                 amount = paymentAmount,
                 card = paymentCard,
             )
@@ -83,5 +83,10 @@ class ClientTest {
         }
         assertTrue(invalidExpiryException is InvalidExpiryException)
         assertEquals("Invalid expiry date, month range is [1..12] and year range is [2000..2099]", invalidExpiryException.message)
+    }
+    @Test
+    fun asf() {
+        println(System.getenv())
+
     }
 }

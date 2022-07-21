@@ -5,21 +5,26 @@ plugins {
     id 'maven-publish'
 }
 
-def apikeyPropertiesFile = rootProject.file("apikey.properties")
-def apikeyProperties = new Properties()
-apikeyProperties.load(new FileInputStream(apikeyPropertiesFile))
-
 android {
     compileSdk 32
-
     defaultConfig {
         minSdk 26
         targetSdk 32
-
-        buildConfigField "String", "E2E_Client_KEY", apikeyProperties["E2E_Client_KEY"]
     }
 
     buildTypes {
+        debug {
+            def localProperties = new Properties()
+            localProperties.load(new FileInputStream(rootProject.file("local.properties")))
+            buildConfigField(
+                    "String",
+                    "PaylikeMerchantApiKey",
+                    (localProperties.containsKey("PaylikeMerchantApiKey")
+                            ? localProperties.getProperty("PaylikeMerchantApiKey")
+                            : "new String()"
+                    )
+            )
+        }
         release {
             minifyEnabled false
         }
