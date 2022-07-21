@@ -3,6 +3,17 @@ plugins {
     id 'org.jetbrains.kotlin.android'
 }
 
+def localProperties = new Properties()
+localProperties.load(new FileInputStream(rootProject.file("local.properties")))
+buildConfigField(
+        "String",
+        "PaylikeMerchantApiKey",
+        (localProperties.containsKey("PaylikeMerchantApiKey")
+                ? localProperties.getProperty("PaylikeMerchantApiKey")
+                : "new String()"
+        )
+)
+
 android {
     compileSdk 32
 
