@@ -53,7 +53,8 @@ fun main() {
     // create client instance
     val client = PaylikeClient("TestID01")
     // get your merchant id, preferably from environmental variable
-    val yourMerchantId = BuildConfig.E2E_Client_KEY
+    // in your local.properties file set: PaylikeMerchantApiKey=<yourMerchantId>
+    val yourMerchantId = BuildConfig.PaylikeMerchantApiKey
 
     // indicate coroutineScope
     runBlocking {

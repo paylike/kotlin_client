@@ -84,9 +84,4 @@ class ClientTest {
         assertTrue(invalidExpiryException is InvalidExpiryException)
         assertEquals("Invalid expiry date, month range is [1..12] and year range is [2000..2099]", invalidExpiryException.message)
     }
-    @Test
-    fun asf() {
-        println(System.getenv())
-
-    }
 }
