@@ -151,14 +151,10 @@ class PaylikeClient {
         /**
          * Iframe
          */
-        if (paymentResponse.action != null && paymentResponse.fields != null) {
-            val refreshedHints: List<String>
-            if (paymentResponse.hints != null) {
-                val freshSet = mutableSetOf<String>()
-                freshSet.addAll(paymentData.hints)
-                freshSet.addAll(paymentResponse.hints!!)
-                refreshedHints = freshSet.toList()
-                paymentResponse.hints = refreshedHints
+        if (!paymentResponse.action.isNullOrEmpty() && !paymentResponse.fields.isNullOrEmpty()) {
+            if (!paymentResponse.hints.isNullOrEmpty()) {
+                val refreshedHints = paymentData.hints
+                paymentResponse.hints = refreshedHints.union(paymentResponse.hints!!).toList()
             }
             val formResponse = requester.request(paymentResponse.action, RequestOptions(
                 clientId = this.clientId,
@@ -180,10 +176,8 @@ class PaylikeClient {
          * then recursively start a new [paymentCreate] iteration.
          */
         if (!paymentResponse.hints.isNullOrEmpty()) {
-            val freshSet = mutableSetOf<String>()
-            freshSet.addAll(paymentData.hints)
-            freshSet.addAll(paymentResponse.hints!!)
-            paymentData.hints = freshSet.toList()
+            val refreshedHints = paymentData.hints
+            paymentData.hints = refreshedHints.union(paymentResponse.hints!!).toList()
             return paymentCreate(paymentData)
         }
 
