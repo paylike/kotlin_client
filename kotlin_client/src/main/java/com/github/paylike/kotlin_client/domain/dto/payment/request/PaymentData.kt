@@ -15,7 +15,8 @@ import kotlinx.serialization.json.JsonObject
  * Holds information for the payment requests json body
  *
  * For API reference
- * @see <a href="https://github.com/paylike/api-reference/blob/main/payments/index.md#payments">link</a>
+ * @see <a
+ * href="https://github.com/paylike/api-reference/blob/main/payments/index.md#payments">link</a>
  */
 @OptIn(ExperimentalSerializationApi::class)
 @Serializable

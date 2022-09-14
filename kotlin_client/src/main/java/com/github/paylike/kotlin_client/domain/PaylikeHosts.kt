@@ -1,10 +1,12 @@
 package com.github.paylike.kotlin_client.domain
 
+import com.github.paylike.kotlin_client.PaylikeClient
+
 /**
- * Describes endpoints used.
+ * Describes used endpoints
  *
- * [api] for the [PaylikeClient.paymentCreate] method
- * [vault] for the [PaylikeClient.tokenize] method
+ * [api] for the [PaylikeClient.paymentCreate] method and [vault] for the [PaylikeClient.tokenize]
+ * method
  */
 data class PaylikeHosts(
     var api: String = "https://b.paylike.io",

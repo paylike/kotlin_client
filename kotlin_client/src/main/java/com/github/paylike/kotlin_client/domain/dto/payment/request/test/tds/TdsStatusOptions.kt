@@ -1,12 +1,9 @@
 package com.github.paylike.kotlin_client.domain.dto.payment.request.test.tds
 
-import com.github.paylike.kotlin_client.domain.dto.payment.request.test.tds.TdsFingerprintOptions.SUCCESS
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-/**
- * [AUTHENTICATED] default by the API
- */
+/** [AUTHENTICATED] default by the API */
 @Serializable
 enum class TdsStatusOptions {
     @SerialName("authenticated") AUTHENTICATED,

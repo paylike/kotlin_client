@@ -4,8 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 /**
- * TokenizeTypes describe the options for tokenizing card number and code
- * [PCN] for card number
+ * TokenizeTypes describe the options for tokenizing card number and code [PCN] for card number
  * [PCSC] for CVC code
  */
 @Serializable
