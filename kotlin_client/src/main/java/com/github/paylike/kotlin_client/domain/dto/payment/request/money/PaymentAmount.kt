@@ -1,6 +1,6 @@
 package com.github.paylike.kotlin_client.domain.dto.payment.request.money
 
-import com.github.paylike.kotlin_money.UnsafeNumberException
+import com.github.paylike.kotlin_client.exceptions.UnsafeNumberException
 import kotlin.math.pow
 import kotlinx.serialization.Serializable
 

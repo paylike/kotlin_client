@@ -1,6 +1,6 @@
 package com.github.paylike.kotlin_client.domain.dto.payment.request.test.card
 
-import com.github.paylike.kotlin_money.PaymentAmount
+import com.github.paylike.kotlin_client.domain.dto.payment.request.money.PaymentAmount
 import kotlinx.serialization.Serializable
 
 /** [limit] is infinite by default for the API [balance] is infinite by default for the API */

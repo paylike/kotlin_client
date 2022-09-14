@@ -5,9 +5,9 @@ import com.github.paylike.kotlin_client.domain.dto.payment.request.PaymentData
 import com.github.paylike.kotlin_client.domain.dto.payment.request.card.ExpiryDto
 import com.github.paylike.kotlin_client.domain.dto.payment.request.card.PaylikeCardDto
 import com.github.paylike.kotlin_client.domain.dto.payment.request.integration.PaymentIntegrationDto
+import com.github.paylike.kotlin_client.domain.dto.payment.request.money.PaymentAmount
 import com.github.paylike.kotlin_client.domain.dto.tokenize.request.TokenizeData
 import com.github.paylike.kotlin_client.domain.dto.tokenize.request.TokenizeTypes
-import com.github.paylike.kotlin_money.PaymentAmount
 import kotlinx.coroutines.runBlocking
 
 /** This a dummy example usage flow, this code wont finish successfully. */

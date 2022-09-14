@@ -2,10 +2,10 @@ package com.github.paylike.kotlin_client.domain.dto.payment.request
 
 import com.github.paylike.kotlin_client.domain.dto.payment.request.card.PaylikeCardDto
 import com.github.paylike.kotlin_client.domain.dto.payment.request.integration.PaymentIntegrationDto
+import com.github.paylike.kotlin_client.domain.dto.payment.request.money.PaymentAmount
 import com.github.paylike.kotlin_client.domain.dto.payment.request.plan.PaymentPlanDto
 import com.github.paylike.kotlin_client.domain.dto.payment.request.test.PaymentTestDto
 import com.github.paylike.kotlin_client.domain.dto.payment.request.unplanned.PaymentUnplannedDto
-import com.github.paylike.kotlin_money.PaymentAmount
 import kotlinx.serialization.EncodeDefault
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.Serializable

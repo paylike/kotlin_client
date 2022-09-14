@@ -1,6 +1,6 @@
 package com.github.paylike.kotlin_client.domain.dto.payment.request.plan
 
-import com.github.paylike.kotlin_money.PaymentAmount
+import com.github.paylike.kotlin_client.domain.dto.payment.request.money.PaymentAmount
 import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.Serializable
 
