@@ -15,7 +15,7 @@ data class ExpiryDto(
 ) {
     init {
         if (month > 12 || month < 1 || year > 2099 || year < 2000) {
-            throw InvalidExpiryException()
+            throw InvalidExpiryException(month, year)
         }
     }
 }
