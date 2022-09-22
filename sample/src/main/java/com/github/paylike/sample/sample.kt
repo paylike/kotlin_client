@@ -5,14 +5,12 @@ import com.github.paylike.kotlin_client.domain.dto.payment.request.PaymentData
 import com.github.paylike.kotlin_client.domain.dto.payment.request.card.ExpiryDto
 import com.github.paylike.kotlin_client.domain.dto.payment.request.card.PaylikeCardDto
 import com.github.paylike.kotlin_client.domain.dto.payment.request.integration.PaymentIntegrationDto
+import com.github.paylike.kotlin_client.domain.dto.payment.request.money.PaymentAmount
 import com.github.paylike.kotlin_client.domain.dto.tokenize.request.TokenizeData
 import com.github.paylike.kotlin_client.domain.dto.tokenize.request.TokenizeTypes
-import com.github.paylike.kotlin_money.PaymentAmount
 import kotlinx.coroutines.runBlocking
 
-/**
- * This a dummy example usage flow, this code wont finish successfully.
- */
+/** This a dummy example usage flow, this code wont finish successfully. */
 fun main() {
     // create client instance
     val client = PaylikeClient("TestID01")
@@ -28,16 +26,18 @@ fun main() {
 
         // create the payment dto
         val paymentAmount = PaymentAmount("EUR", 1, 0)
-        val paymentCard = PaylikeCardDto(
-            number = responseCard,
-            cvc = responseCode,
-            expiry = ExpiryDto(12,2023),
-        )
-        val paymentData = PaymentData(
-            integration = PaymentIntegrationDto(yourMerchantId), // here comes your merchant id
-            amount = paymentAmount,
-            card = paymentCard,
-        )
+        val paymentCard =
+            PaylikeCardDto(
+                number = responseCard,
+                cvc = responseCode,
+                expiry = ExpiryDto(12, 2023),
+            )
+        val paymentData =
+            PaymentData(
+                integration = PaymentIntegrationDto(yourMerchantId), // here comes your merchant id
+                amount = paymentAmount,
+                card = paymentCard,
+            )
 
         // Payment flow:
         // Send the payment request

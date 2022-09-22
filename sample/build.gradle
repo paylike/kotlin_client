@@ -1,39 +1,72 @@
 plugins {
-    id 'com.android.application'
-    id 'org.jetbrains.kotlin.android'
+	id 'com.android.application'
+	id 'org.jetbrains.kotlin.android'
+	id 'com.diffplug.spotless' version '6.8.0'
 }
 
-def localProperties = new Properties()
-localProperties.load(new FileInputStream(rootProject.file("local.properties")))
-
-
 android {
-    compileSdk 32
-
-    defaultConfig {
-        applicationId "com.github.paylike.sample"
-        minSdk 26
-        targetSdk 32
-        versionCode 1
-        versionName "1.0"
-    }
-    buildTypes {
-        release {
-            minifyEnabled false
-        }
-    }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = '1.8'
-    }
-    packagingOptions {
-        exclude 'META-INF/DEPENDENCIES'
-    }
+	compileSdk 32
+	defaultConfig {
+		applicationId "com.github.paylike.sample"
+		minSdk 26
+		targetSdk 32
+		versionCode 1
+		versionName "1.0"
+	}
+	buildTypes {
+		def localProperties = new Properties()
+		debug {
+			localProperties.load(new FileInputStream(rootProject.file('local.properties')))
+			buildConfigField(
+					'String',
+					'PaylikeMerchantApiKey',
+					(localProperties.containsKey('PaylikeMerchantApiKey')
+					? localProperties.getProperty('PaylikeMerchantApiKey')
+					: 'new String()'
+					)
+					)
+		}
+		release {
+			localProperties.load(new FileInputStream(rootProject.file('local.properties')))
+			buildConfigField(
+					'String',
+					'PaylikeMerchantApiKey',
+					(localProperties.containsKey('PaylikeMerchantApiKey')
+					? localProperties.getProperty('PaylikeMerchantApiKey')
+					: 'new String()'
+					)
+					)
+			minifyEnabled false
+		}
+	}
+	compileOptions {
+		sourceCompatibility JavaVersion.VERSION_1_8
+		targetCompatibility JavaVersion.VERSION_1_8
+	}
+	kotlinOptions {
+		jvmTarget = '1.8'
+	}
+	packagingOptions {
+		exclude 'META-INF/DEPENDENCIES'
+	}
 }
 
 dependencies {
-    implementation project(path: ':kotlin_client')
+	implementation project(':kotlin_client')
 }
+
+spotless {
+	kotlin {
+		target 'src/**/*.kt', 'src/**/*.kts'
+		ktfmt().kotlinlangStyle()
+		trimTrailingWhitespace()
+		endWithNewline()
+	}
+	groovyGradle {
+		target '*.gradle'
+		greclipse()
+		trimTrailingWhitespace()
+		endWithNewline()
+	}
+}
+build.dependsOn 'spotlessApply'

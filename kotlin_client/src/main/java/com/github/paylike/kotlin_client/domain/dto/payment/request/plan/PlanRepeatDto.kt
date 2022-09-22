@@ -4,12 +4,11 @@ import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.Serializable
 
 /**
- * Repeating components begin at [first] (defaulting to "now") and repeat indefinitely
- * or [count] times at a fixed interval [interval].
+ * Repeating components begin at [first] (defaulting to "now") and repeat indefinitely or [count]
+ * times at a fixed interval [interval].
  *
- * Limitations:
- * [count] is optional only for the last component.
- * [first] must be chronologically later than the previous component.
+ * Limitations: [count] is optional only for the last component. [first] must be chronologically
+ * later than the previous component.
  */
 @Serializable
 data class PlanRepeatDto(

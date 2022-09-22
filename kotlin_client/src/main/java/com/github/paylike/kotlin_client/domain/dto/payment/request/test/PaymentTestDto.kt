@@ -5,9 +5,8 @@ import com.github.paylike.kotlin_client.domain.dto.payment.request.test.tds.Test
 import kotlinx.serialization.Serializable
 
 /**
- * Test Object for the payload of the requests.
- * Describes different use-cases what we expect
- * from the server to test them.
+ * Test Object for the payload of the requests. Describes different use-cases what we expect from
+ * the server to test them.
  *
  * For API reference
  * @see <a href="https://github.com/paylike/api-reference/blob/main/payments/index.md#test">link</a>

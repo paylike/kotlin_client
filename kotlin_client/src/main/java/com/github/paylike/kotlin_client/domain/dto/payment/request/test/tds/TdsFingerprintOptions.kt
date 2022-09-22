@@ -4,9 +4,7 @@ import com.github.paylike.kotlin_client.domain.dto.payment.request.test.Fingerpr
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-/**
- * [SUCCESS] default by the API
- */
+/** [SUCCESS] default by the API */
 @Serializable
 enum class TdsFingerprintOptions {
     @SerialName("timeout") TIMEOUT,

@@ -4,9 +4,7 @@ import com.github.paylike.kotlin_client.domain.dto.tokenize.response.TokenizedRe
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-/**
- * Describes a card that already has a tokenized number and CVC
- */
+/** Describes a card that already has a tokenized number and CVC */
 @Serializable
 data class PaylikeCardDto(
     val number: TokenizedResponse,
