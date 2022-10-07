@@ -102,4 +102,10 @@ class ClientTest {
             invalidExpiryException.message
         )
     }
+
+    @Test
+    fun InvalidExpiryExceptionTest() {
+        val exeption = InvalidExpiryException(13, 12)
+        println(exeption.message)
+    }
 }
