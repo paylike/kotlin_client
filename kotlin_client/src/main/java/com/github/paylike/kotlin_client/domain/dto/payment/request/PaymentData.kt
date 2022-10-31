@@ -22,8 +22,8 @@ import kotlinx.serialization.json.JsonObject
 @Serializable
 data class PaymentData(
     val test: PaymentTestDto? = null,
-    val integration: PaymentIntegrationDto,
-    val card: PaylikeCardDto,
+    val integration: PaymentIntegrationDto? = null,
+    val card: PaylikeCardDto? = null,
     @EncodeDefault var hints: List<String> = emptyList(),
     val text: String? = null,
     val custom: JsonObject? = null,
