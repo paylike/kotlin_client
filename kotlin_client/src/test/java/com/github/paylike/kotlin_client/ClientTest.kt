@@ -61,7 +61,7 @@ class ClientTest {
             assertTrue(responsePayment.htmlBody!!.isNotEmpty())
         }
     }
-    @Test
+    /*@Test
     fun expiryExceptionTest() {
         var invalidExpiryException =
             assertThrows(InvalidExpiryException::class.java) {
@@ -101,7 +101,7 @@ class ClientTest {
             "Invalid expiry date, month range is [1..12] and year range is [2000..2099]",
             invalidExpiryException.message
         )
-    }
+    }*/
 
     @Test
     fun InvalidExpiryExceptionTest() {

@@ -10,7 +10,7 @@ import com.github.paylike.kotlin_client.domain.dto.tokenize.request.TokenizeData
 import com.github.paylike.kotlin_client.domain.dto.tokenize.request.TokenizeTypes
 import kotlinx.coroutines.runBlocking
 
-/** This a dummy example usage flow, this code wont finish successfully. */
+/** This a dummy example usage flow, this code wont execute successfully. */
 fun main() {
     // create client instance
     val client = PaylikeClient("TestID01")
@@ -21,7 +21,7 @@ fun main() {
     // indicate coroutineScope
     runBlocking {
         // Tokenize the card data
-        val responseCard = client.tokenize(TokenizeData(TokenizeTypes.PCN, "4100000000000000"))
+        val responseCard = client.tokenize(TokenizeData(TokenizeTypes.PCN, "4012111111111111"))
         val responseCode = client.tokenize(TokenizeData(TokenizeTypes.PCSC, "111"))
 
         // create the payment dto
