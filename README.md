@@ -35,7 +35,7 @@ dependencies {
 }
 ```
 
-### Example code for paymnet flow
+### Example code for payment flow
 
 ```kotlin
 import com.github.paylike.kotlin_client.BuildConfig
