@@ -19,8 +19,7 @@ fun main() {
     val yourMerchantId = "PaylikeMerchantApiKey"
 
     // early return if merchantId is not present
-    if (yourMerchantId == "PaylikeMerchantApiKey")
-        return
+    if (yourMerchantId == "PaylikeMerchantApiKey") return
     // indicate coroutineScope
     runBlocking {
         // Tokenize the card data

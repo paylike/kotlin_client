@@ -12,21 +12,29 @@ android {
 		minSdk 26
 		targetSdk 33
 	}
-
 	buildTypes {
+		def localProperties = new Properties()
 		debug {
-			def localProperties = new Properties()
 			localProperties.load(new FileInputStream(rootProject.file("local.properties")))
 			buildConfigField(
 					"String",
-					"PaylikeMerchantApiKey",
-					(localProperties.containsKey("PaylikeMerchantApiKey")
-					? localProperties.getProperty("PaylikeMerchantApiKey")
+					"PAYLIKE_MERCHANT_API_KEY",
+					(localProperties.containsKey("PAYLIKE_MERCHANT_API_KEY")
+					? localProperties.getProperty("PAYLIKE_MERCHANT_API_KEY")
 					: "new String()"
 					)
 					)
 		}
 		release {
+			localProperties.load(new FileInputStream(rootProject.file("local.properties")))
+			buildConfigField(
+					"String",
+					"PAYLIKE_MERCHANT_API_KEY",
+					(localProperties.containsKey("PAYLIKE_MERCHANT_API_KEY")
+					? localProperties.getProperty("PAYLIKE_MERCHANT_API_KEY")
+					: "new String()"
+					)
+					)
 			minifyEnabled false
 		}
 	}
