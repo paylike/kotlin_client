@@ -22,9 +22,10 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
       - name: Get secret and add to freshly created local.properties
-        run: 
-          touch local.properties;
-          echo ${{ secrets.PAYLIKE_MERCHANT_API_KEY }} >> local.properties;
-          cat local.properties;
+        env:
+          API_KEY: ${{secrets.PAYLIKE_MERCHANT_API_KEY}}
+        run: |
+          echo "$API_KEY" >> local.properties
+          cat local.properties
       - name: Build APK
         run: ./gradlew build
