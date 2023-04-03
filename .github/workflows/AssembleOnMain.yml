@@ -25,5 +25,6 @@ jobs:
         run: 
           touch local.properties
           echo ${{ secrets.PAYLIKE_MERCHANT_API_KEY }} >> local.properties
+          ls
       - name: Build APK
         run: ./gradlew build
