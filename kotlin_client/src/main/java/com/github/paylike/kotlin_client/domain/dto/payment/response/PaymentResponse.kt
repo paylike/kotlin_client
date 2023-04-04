@@ -8,8 +8,8 @@ import kotlinx.serialization.json.JsonObject
  * Response types to payment requests
  *
  * One of : [challenges], or ( one of them but for the same purpose [authorizationId] or
- * [transactionId] ) or [hints] or [hints], // optional [action], [fields], [timeout], // optional
- * and in milliseconds [method], // http method
+ * [transactionId] ) or [hints] or [hints], // optional & [action], & [fields], & [timeout], //
+ * optional and in milliseconds & [method], // http method
  *
  * For API reference
  * @see <a

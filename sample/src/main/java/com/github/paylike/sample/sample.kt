@@ -18,6 +18,8 @@ fun main() {
     // in your local.properties file set: PaylikeMerchantApiKey=<yourMerchantId>
     val yourMerchantId = "PaylikeMerchantApiKey"
 
+    // early return if merchantId is not present
+    if (yourMerchantId == "PaylikeMerchantApiKey") return
     // indicate coroutineScope
     runBlocking {
         // Tokenize the card data

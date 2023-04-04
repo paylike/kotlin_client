@@ -32,7 +32,7 @@ class ClientTest {
     }
     @Test
     fun paymentCreation() {
-        if (BuildConfig.PaylikeMerchantApiKey.isNullOrEmpty()) {
+        if (BuildConfig.PAYLIKE_MERCHANT_API_KEY.isNullOrEmpty()) {
             throw Exception("The environmental field is not set to local.properties file")
         }
         runBlocking {
@@ -51,7 +51,7 @@ class ClientTest {
             val paymentData =
                 PaymentData(
                     test = PaymentTestDto(),
-                    integration = PaymentIntegrationDto(BuildConfig.PaylikeMerchantApiKey),
+                    integration = PaymentIntegrationDto(BuildConfig.PAYLIKE_MERCHANT_API_KEY),
                     amount = paymentAmount,
                     card = paymentCard,
                 )

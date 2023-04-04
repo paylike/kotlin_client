@@ -5,37 +5,16 @@ plugins {
 }
 
 android {
-	compileSdk 32
+	compileSdk 33
 	defaultConfig {
 		applicationId "com.github.paylike.sample"
 		minSdk 26
-		targetSdk 32
+		targetSdk 33
 		versionCode 1
 		versionName "1.0"
 	}
 	buildTypes {
-		def localProperties = new Properties()
-		debug {
-			localProperties.load(new FileInputStream(rootProject.file('local.properties')))
-			buildConfigField(
-					'String',
-					'PaylikeMerchantApiKey',
-					(localProperties.containsKey('PaylikeMerchantApiKey')
-					? localProperties.getProperty('PaylikeMerchantApiKey')
-					: 'new String()'
-					)
-					)
-		}
 		release {
-			localProperties.load(new FileInputStream(rootProject.file('local.properties')))
-			buildConfigField(
-					'String',
-					'PaylikeMerchantApiKey',
-					(localProperties.containsKey('PaylikeMerchantApiKey')
-					? localProperties.getProperty('PaylikeMerchantApiKey')
-					: 'new String()'
-					)
-					)
 			minifyEnabled false
 		}
 	}
@@ -69,4 +48,4 @@ spotless {
 		endWithNewline()
 	}
 }
-build.dependsOn 'spotlessApply'
+build.dependsOn 'spotlessCheck'

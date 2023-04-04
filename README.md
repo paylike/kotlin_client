@@ -3,8 +3,8 @@
 <a href="https://jitpack.io/#paylike/kotlin_client" target="_blank">
     <img src="https://jitpack.io/v/paylike/kotlin_client.svg" />
 </a>
-<a href="https://github.com/kocsislaci/kotlin-client/actions/workflows/AssembleOnMain.yml" target="_blank">
-    <img src="https://github.com/kocsislaci/kotlin-client/actions/workflows/AssembleOnMain.yml/badge.svg?branch=main" />
+<a href="/../../actions/workflows/AssembleOnMain.yml" target="_blank">
+    <img src="/../../actions/workflows/AssembleOnMain.yml/badge.svg?branch=main" />
 </a>
 
 *This implementation is based on [Paylike/js-client](https://github.com/paylike/js-client)*
@@ -35,7 +35,7 @@ dependencies {
 }
 ```
 
-### Example code for paymnet flow
+### Example code for payment flow
 
 ```kotlin
 import com.github.paylike.kotlin_client.BuildConfig
